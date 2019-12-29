@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+<body>
+
+  <% include ../static/partials/navbar.ejs %>
+
+  <main class="container">
+
+    <% include ../static/partials/messages.ejs %>
+
+    <h1>Are you sure you want to downgrade your account?</h1>
+    <p>You will be losing out on great features that come with Premium Membership
+    such as creating private wikis and collaborating with other users!</p>
+
+    <form action="/users/<%=currentUser.id%>/downgrade" method="POST">
+				<button type="submit" class="btn btn-success">Yes, please downgrade my account</button>
+		</form>
+    <hr>
+    <form action="/users/<%= currentUser.id %>"">
+    <button type="submit" class="btn btn-danger">No, please get me back to my Wikis page</button>
+    </form>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+  </html>

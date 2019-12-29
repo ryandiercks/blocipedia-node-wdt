@@ -5,8 +5,7 @@ const faker = require("faker");
 let wikis = [];
 
 for(let i = 1 ; i <= 10 ; i++){
-   wikis.push({
-     id: i,
+   wikis.push({     
      title: faker.hacker.noun(),
      body: faker.hacker.phrase(),
      private: false,

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h1><%= `${currentUser.username}'s Wikis` %></h1>
+
+      <% if(currentUser.role === 0) { %>
+        <h4>Account Level: Standard</h4>
+        <a class="nav-link" href="/users/<%=currentUser.id%>/upgradeForm">Upgrade Account</a>
+
+      <% } else if(currentUser.role === 1) { %>
+        <h4>Account Level: Premium</h4>
+        <a class="nav-link" href="/users/<%=currentUser.id%>/downgradeForm">Downgrade Account</a>
+
+      <% } else { %>
+         <h4>Account Level: Admin</h4>
+      <% }%>
+
+      <hr>
+
+      <h2>Public Wikis</h2>
+
+      <ul class="list-unstyled">
+        <% if(wikis) { %>
+          <% wikis.forEach((wiki) => { %>
+
+            <li>
+              <a href="/wikis/<%= wiki.id %>">
+                <%= wiki.title %>
+              </a>
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+      <hr>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>
