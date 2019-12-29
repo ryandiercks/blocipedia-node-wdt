@@ -10,15 +10,52 @@
 
     <% include ../static/partials/messages.ejs %>
 
+    <% if(currentUser && currentUser.role === 1) { %>
+    <h1>Your Private Wikis</h2>
+
+    <ul class="list-group">
+
+      <% if(wikis) { %>
+      <% wikis.forEach((wiki) => { %>
+        <% if(wiki.private == true && (wiki.userId == currentUser.id)){ %>
+
+        <li class="list-group-item">
+          <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+        </li>
+        <% } %>
+        <% }) %>
+        <% } %>
+      </ul>
+      <hr>
+      <% }%>
+
+    <% if(currentUser && currentUser.role === 3) { %>
+    <h1>All Private Wikis</h2>
+
+    <ul class="list-group">
+
+      <% wikis.forEach((wiki) => { %>
+        <% if(wiki.private == true){ %>
+
+        <li class="list-group-item">
+          <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+        </li>
+        <% } %>
+        <% }) %>
+      </ul>
+      <hr>
+      <% }%>
+
     <h1>Wikis</h1>
 
     <ul class="list-group">
 
       <% wikis.forEach((wiki) => { %>
-
+        <% if(wiki.private == false){ %>
         <li class="list-group-item">
           <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
         </li>
+        <% } %>
         <% }) %>
       </ul>
 

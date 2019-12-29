@@ -11,15 +11,28 @@
       <h1>Edit Wiki</h1>
 
       <form action="/wikis/<%= wiki.id %>/update" method="post">
+
         <div class="form-group">
           <label for="title">Wiki Title</label>
-
           <input value="<%= wiki.title %>" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
         </div>
+
         <div class="form-group">
           <label for="description">Body</label>
           <textarea rows="4" class="form-control" name="body" placeholder="Enter Body"><%= wiki.body %></textarea>
         </div>
+
+        <% if((currentUser && (currentUser.role === 1 || currentUser.role === 3)) && wiki.userId === currentUser.id){ %>
+        <div class="form-group">
+          <label for="private">Public</label>
+          <input type="radio" name="private" value="false">
+          <hr>
+          <label for="private">Private Wiki</label>
+          <input type="radio" name="private" value="true">
+          </select>
+        </div>
+        <% } %>
+
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </main>

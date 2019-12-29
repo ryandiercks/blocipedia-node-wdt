@@ -33,5 +33,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  Wiki.addScope("privateWikis", (userId) => {
+     return {
+      where: { userId: userId},
+      where: { private: true},
+      order: [["createdAt", "DESC"]]
+    }
+  });
+
   return Wiki;
 };

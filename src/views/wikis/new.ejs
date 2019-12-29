@@ -23,6 +23,12 @@
           <input type="radio" name="private" value="false" checked>
           <label for="private">Public Wiki</label>
         </div>
+        <% if(currentUser.role === 1 || currentUser.role === 3 ) { %>
+        <div class="form-group">
+          <input type="radio" name="private" value="true">
+          <label for="private">Private Wiki</label>
+        </div>
+        <% }%>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 

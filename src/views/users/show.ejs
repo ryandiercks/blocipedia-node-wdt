@@ -30,18 +30,43 @@
       <h2>Public Wikis</h2>
 
       <ul class="list-unstyled">
+
         <% if(wikis) { %>
           <% wikis.forEach((wiki) => { %>
+            <% if(wiki.private === false) { %>
+
+            <li>
+              <a href="/wikis/<%= wiki.id %>"><%= wiki.title %>
+              </a>
+            </li>
+            <% } %>
+          <% }) %>
+        <% } %>
+
+      </ul>
+      <hr>
+
+      <% if(currentUser.role === 1 || currentUser.role === 3) { %>
+      <h2>Private Wikis</h2>
+
+      <ul class="list-unstyled">
+
+        <% if(wikis) { %>
+          <% wikis.forEach((wiki) => { %>
+            <% if(wiki.private === true) { %>
 
             <li>
               <a href="/wikis/<%= wiki.id %>">
                 <%= wiki.title %>
               </a>
             </li>
+            <% } %>
           <% }) %>
         <% } %>
+
       </ul>
-      <hr>
+      <% }%>
+
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
