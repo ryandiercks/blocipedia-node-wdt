@@ -9,12 +9,13 @@
   <main class="container">
 
     <% include ../static/partials/messages.ejs %>
-    
+
     <h1><%= wiki.title %></h1>
     <p>Created on: <%= wiki.createdAt %></p>
     <p>Last Updated on: <%= wiki.updatedAt %></p>
+    <hr>
 
-    <p style="border-style: inset;"><%= wiki.body %></p>
+    <%- wiki.body %>
 
     <% if(currentUser) { %>
       <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
