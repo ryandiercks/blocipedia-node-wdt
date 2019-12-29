@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0      
+      defaultValue: 0
     }
   }, {});
   User.associate = function(models) {
@@ -28,6 +28,12 @@ module.exports = (sequelize, DataTypes) => {
        foreignKey: "userId",
        as: "wikis"
      });
+
+     User.hasMany(models.Collaborator, {
+      foreignKey: 'userId',
+      as: 'collaborators'
+    });
   };
+  
   return User;
 };

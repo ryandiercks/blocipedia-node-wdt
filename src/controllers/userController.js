@@ -1,3 +1,4 @@
+require("dotenv").config();
 const userQueries = require("../db/queries.users.js");
 const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
@@ -45,7 +46,7 @@ module.exports = {
         res.redirect("users/signIn");
       } else {
         req.flash("notice", "You've successfully signed in!");
-        res.redirect("/wikis");
+        res.redirect("/");
       }
     })
   },
@@ -70,8 +71,9 @@ module.exports = {
     });
   },
 
+
   upgradeForm(req, res, next){
-    res.render("users/upgrade");
+    res.render("users/upgrade", {publishableKey});
   },
 
   upgrade(req, res, next){
@@ -120,6 +122,18 @@ module.exports = {
       req.flash("notice", "You now have premium membership!");
       res.redirect("/");
     })
+  },
+
+  showCollaborations(req, res, next){
+    userQueries.getUser(req.user.id, (err, result) => {
+      user = result["user"];
+      collaborations = result["collaborations"];
+      if(err || user == null){
+        res.redirect(404, "/");
+      } else {
+        res.render("users/collaborations", {user, collaborations});
+      }
+    });
   }
 
 }

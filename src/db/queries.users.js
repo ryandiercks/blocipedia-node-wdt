@@ -4,6 +4,7 @@ const Wiki = require("./models").Wiki;
 const bcrypt = require("bcryptjs");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const Collaborator = require("./models").Collaborator;
 
 module.exports = {
 
@@ -34,12 +35,10 @@ module.exports = {
     })
   },
 
-  getUser(id, callback){
-
+  getUser(id, callback) {
     let result = {};
     User.findById(id)
     .then((user) => {
-
       if(!user) {
         callback(404);
       } else {
@@ -50,10 +49,18 @@ module.exports = {
         .then((wikis) => {
 
           result["wikis"] = wikis;
-          callback(null, result);
 
-        })
-      }
+          Collaborator.scope({method: ["collaborationsFor", id]}).all()
+          .then((collaborations) => {
+
+            result["collaborations"] = collaborations;
+            callback(null, result);
+          })
+          .catch((err) => {
+            callback(err);
+          });
+        });
+      };
     })
   },
 
@@ -63,8 +70,8 @@ module.exports = {
       if(!user){
         return callback("User does not exist!");
       } else{
-      return user.updateAttributes({role: 1});
-    }
+        return user.updateAttributes({role: 1});
+      }
     }) .catch((err) =>{
       callback(err);
     })

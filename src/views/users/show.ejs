@@ -19,7 +19,7 @@
 
       <% } else if(currentUser.role === 1) { %>
         <h4>Account Level: Premium</h4>
-        <a class="nav-link" href="/users/<%=currentUser.id%>/downgradeForm">Downgrade Account</a>
+        <a href="/users/<%=currentUser.id%>/downgradeForm">Downgrade Account</a>
 
       <% } else { %>
          <h4>Account Level: Admin</h4>
@@ -65,6 +65,10 @@
         <% } %>
 
       </ul>
+      <hr>
+
+      <a href="/users/<%=currentUser.id%>/collaborations"><h2>Collaborations</h2></a>
+      
       <% }%>
 
     </main>

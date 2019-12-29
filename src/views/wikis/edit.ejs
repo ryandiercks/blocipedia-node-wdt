@@ -34,6 +34,13 @@
         <% } %>
 
         <button type="submit" class="btn btn-primary">Update</button>
+
+        <% if(currentUser && (currentUser.id == wiki.userId || currentUser && currentUser.role === 3)) { %>
+
+          <a href="/wikis/<%= wiki.id %>/collaborators" class="btn btn-info">Edit Collaborators</a>
+
+        <% } %>
+
       </form>
     </main>
 

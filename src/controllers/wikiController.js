@@ -38,9 +38,9 @@ module.exports = {
   },
 
   show(req, res, next){
-
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
-
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      wiki = result["wiki"];
+      collaborators = result["collaborators"];
       if(err || wiki == null){
         res.redirect(404, "/");
       } else {
@@ -61,11 +61,14 @@ module.exports = {
   },
 
   edit(req, res, next){
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      wiki = result["wiki"];
+      collaborators = result["collaborators"];
       if(err || wiki == null){
         res.redirect(404, "/");
       } else {
-        res.render("wikis/edit", {wiki});
+        res.render("wikis/edit", {wiki, collaborators});
       }
     });
   },
